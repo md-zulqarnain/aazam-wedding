@@ -74,6 +74,11 @@
             <p>Name</p>
             <input type="text" class="form-control name">
         </div>
+        <div class="form-group">
+            <p>Type</p>
+            <label><input type="radio" id="hi" name="fav_language" class="language" value="" checked> Hindi</label>
+            <label><input type="radio" id="en" name="fav_language" class="language" value="en"> English </label>
+        </div>
         <button class="btn invite-btn" type="button">Create Link</button>
         <p class="inviteLink"></p>
     </div>
@@ -89,10 +94,15 @@
         $(document).ready(function () {
             $('body').on('click', '.invite-btn', function () {
                 var name = $(this).parent('.linkCreateForm').find('.name').val();
+                var radioVal = $(this).parent('.linkCreateForm').find('.language:checked').val();
                 name = $.trim(name)
-                name = name.replace(/\s+/g, '%20')
+                name = name.replace(/\s+/g, '%20');
+                var lang = "";
+                if(radioVal == "en") {
+                    lang = "/en"
+                }
                 if (name) {
-                    $('.inviteLink').html(`<span class="link">${window.origin}/aazam-wedding/?invite=${name}</span><span class="copyText">Copy</span>`);
+                    $('.inviteLink').html(`<span class="link">${window.origin}/aazam-wedding${lang}/?invite=${name}</span><span class="copyText">Copy</span>`);
                 }
             });
             $('body').on('click', '.inviteLink span.copyText', function () {
